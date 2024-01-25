@@ -34,6 +34,9 @@ Ensure you have the following software installed on your machine:
 
 ```bash
 git clone https://github.com/nsgbharath/doctorite_assignment.git
+
+in application.properties replace your db,username and password for mysql and weather app api key
+
 cd SERVER/
 
 build the code - mvn clean install

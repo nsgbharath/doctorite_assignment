@@ -26,11 +26,12 @@ export class WeatherComponent {
         this.weather = data;
         this.errorMessage = '';
       },
-      (error: HttpErrorResponse) => {
+      (error) => {
         if (error.status === 400) {
           this.errorMessage = 'City does not exist';
         } else {
-          // Handle other errors as needed
+     console.log(error);
+     
           this.errorMessage = 'An error occurred while fetching weather data.';
         }
         this.weather = null;

@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -18,7 +19,8 @@ public class WeatherServiceImpl implements WeatherService {
 
 	@Autowired
 	private WeatherRepository weatherRepository;
-
+@Value("${weather.api.key}")
+	private String weather_app_key;
 	@Override
 	public WeatherDTO fetchWeatherReport(String city) throws WeatherReportException {
 		Optional<Weather> optional = weatherRepository.findByCity(city);
@@ -44,7 +46,7 @@ public class WeatherServiceImpl implements WeatherService {
 	private Weather getWeatherFromOpenAPI(String city) {
 		RestTemplate restTemplate = new RestTemplate();
 		String url = String.format(
-				"https://api.openweathermap.org/data/2.5/weather?q=%s&appid=d97ac08b580abf51fce6901ee97bedd4", city);
+				"https://api.openweathermap.org/data/2.5/weather?q=%s&appid=%s", city,weather_app_key);
 		OpenAPIResponse response = restTemplate.getForObject(url, OpenAPIResponse.class);
 		Weather weather = new Weather();
 		weather.setCity(city);
