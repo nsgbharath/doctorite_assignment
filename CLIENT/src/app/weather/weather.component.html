@@ -1,0 +1,35 @@
+
+<div class="search-form">
+    <form [formGroup]="weatherForm" (ngSubmit)="fetchWeather()" novalidate>
+      <input
+        type="text"
+        class="search-input"
+        placeholder="Enter city name"
+        formControlName="city"
+      />
+      <div *ngIf="weatherForm.get('city')?.invalid && weatherForm.get('city')?.touched">
+        <div *ngIf="weatherForm.get('city')?.hasError('required')"class="text-danger" >City is required.</div>
+        <div *ngIf="weatherForm.get('city')?.hasError('pattern')" class="text-danger">Invalid city name.</div>
+      </div>
+      <button class="fetch-button" [disabled]="weatherForm.invalid">Fetch</button>
+    </form>
+  </div>
+
+<div *ngIf="weather" class="weather-container">
+    <div class="city-name">{{ weather?.city }}</div>
+    <div class="temperature">{{ weather?.temp }}°C</div>
+    <div class="weather-description">{{ weather?.type }} <i class="fas fa-sun"></i></div>
+
+    <div class="additional-info">
+        <i class="fa fa-thermometer-half"></i> Feels Like: {{ weather?.temp }}°C |
+        <i class="fa fa-thermometer-empty"></i> Min Temperature: {{ weather?.minTemp }}°C |
+        <i class="fa fa-thermometer-full"></i> Max Temperature: {{ weather?.maxTemp }}°C |
+        <i class="fa fa-tint"></i> Humidity: {{ weather?.humidity }}% |
+        <i class="fa fa-globe"></i> Longitude: {{ weather?.lon }} |
+        <i class="fa fa-globe"></i> Latitude: {{ weather?.lat }} |
+        <i class="fa fa-tachometer-alt"></i> Pressure: {{ weather?.pressure }} mPa
+    </div>
+</div>
+<div *ngIf="errorMessage" class="text text-danger">
+{{errorMessage}}</div>
+

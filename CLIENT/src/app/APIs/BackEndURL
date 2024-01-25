@@ -1,0 +1,6 @@
+
+export class BackEndURL{
+    readonly server:string="http://localhost:"
+    readonly port:string="8080"
+    readonly fetchreport=this.server+this.port+"/weather-api/weather/city/"
+}
